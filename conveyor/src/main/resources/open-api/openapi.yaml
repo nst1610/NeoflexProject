@@ -1,0 +1,295 @@
+openapi: 3.0.3
+info: 
+  title: Credit conveyor microservice
+  version: 1.0.0
+servers:
+  - url: http://localhost:8080/
+paths:
+  /conveyor/offers:
+    post:
+      summary: Pre-scoring and calculation of possible loan offers
+      tags: 
+        - Conveyor
+      operationId: getAllPossibleOffers
+      requestBody:
+        required: true
+        content:
+          application/json: 
+            schema: 
+              $ref: "#/components/schemas/LoanApplicationRequestDto"
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/LoanOfferDto"
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+
+  /conveyor/calculation:
+    post:
+      summary: Scoring  and full calculation loan parameters
+      tags:
+        - Conveyor
+      operationId: getFullCalculatedParameters
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ScoringDataDto"
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CreditDto"
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+
+components: 
+  schemas:
+    LoanApplicationRequestDto:
+      type: object
+      properties:
+        amount:
+          type: number
+          format: double
+          example: 1000000.00
+        term:
+          type: integer
+          format: int32
+          example: 18
+        firstName:
+          type: string
+          example: Ivan
+        lastName:
+          type: string
+          example: Ivanov
+        middleName:
+          type: string
+          example: Ivanovich
+        email:
+          type: string
+          example: ivan@mail.ru
+        birthdate:
+          type: string
+          format: date
+          example: 1999-10-15
+        passportSeries:
+          type: string
+          example: 7224
+        passportNumber:
+          type: string
+          example: 546558
+
+    LoanOfferDto:
+      type: object
+      properties:
+        applicationId: 
+          type: integer
+          format: int64
+          example: 1
+        requestedAmount:
+          type: number
+          format: double
+          example: 1000000.00
+        totalAmount:
+          type: number
+          format: double
+          example: 1000000.00
+        term:
+          type: integer
+          format: int32
+          example: 18
+        monthlyPayment:
+          type: number
+          format: double
+          example: 50000.00
+        rate:
+          type: number
+          format: double
+          example: 10.00
+        isInsuranceEnabled:
+          type: boolean
+        isSalaryClient:
+          type: boolean
+
+    ScoringDataDto:
+      type: object
+      properties:
+        amount:
+          type: number
+          format: double
+          example: 1000000.00
+        term:
+          type: integer
+          format: int32
+          example: 18
+        firstName:
+          type: string
+          example: Ivan
+        lastName:
+          type: string
+          example: Ivanov
+        middleName:
+          type: string
+          example: Ivanovich
+        gender:
+          type: string
+          enum:
+            - MALE
+            - FEMALE
+            - NOT BINARY
+          example: MALE
+        birthdate:
+          type: string
+          format: date
+          example: 1999-10-15
+        passportSeries:
+          type: string
+          example: 5555
+        passportNumber:
+          type: string
+          example: 666666
+        passportIssueDate:
+          type: string
+          format: date
+          example: 2010-12-04
+        passportIssueBranch:
+          type: string
+        maritalStatus:
+          type: string
+          enum:
+            - SINGLE
+            - MARRIED
+            - DIVORCED
+        dependentAmount:
+          type: integer
+          format: int32
+          example: 2
+        employment:
+          $ref: '#/components/schemas/EmploymentDto'
+        account:
+          type: string
+          example: 666666666666
+        isInsuranceEnabled:
+          type: boolean
+        isSalaryClient:
+          type: boolean
+
+    CreditDto:
+      type: object
+      properties:
+        amount:
+          type: number
+          format: double
+          example: 1000000.00
+        term:
+          type: integer
+          format: int32
+          example: 18
+        monthlyPayment:
+          type: number
+          format: double
+          example: 50000.00
+        rate:
+          type: number
+          format: double
+          example: 10.00
+        psk:
+          type: number
+          format: double
+          example: 200.00
+        isInsuranceEnabled:
+          type: boolean
+        isSalaryClient:
+          type: boolean
+        paymentSchedule:
+          type: array
+          items:
+            $ref: '#/components/schemas/PaymentScheduleElement'
+
+    EmploymentDto:
+      type: object
+      properties:
+        employmentStatus:
+          type: string
+          enum:
+            - EMPLOYED
+            - UNEMPLOYED
+            - SELF-EMPLOYED
+            - BUSINESS OWNER
+          example: EMPLOYED
+        employerINN:
+          type: string
+          example: 55555555
+        salary:
+          type: number
+          format: double
+          example: 50000.00
+        position:
+          type: string
+          enum:
+            - INTERN
+            - WORKER
+            - TOP_MANAGER
+            - MID_MANAGER
+            - DIRECTOR
+            - OWNER
+        workExperienceTotal:
+          type: integer
+          format: int32
+          example: 36
+        workExperienceCurrent:
+          type: integer
+          format: int32
+          example: 6
+
+    PaymentScheduleElement:
+      type: object
+      properties:
+        number:
+          type: integer
+          format: int32
+          example: 7
+        date:
+          type: string
+          format: date
+          example: 2023-10-05
+        totalPayment:
+          type: number
+          format: double
+          example: 50000.00
+        interestPayment:
+          type: number
+          format: double
+          example: 3000.00
+        debtPayment:
+          type: number
+          format: double
+          example: 47000.00
+        remainingDebt:
+          type: number
+          format: double
+          example: 999965.00
+
+    ErrorResponse:
+      type: object
+      properties:
+        message:
+          type: string
+        timeStamp: 
+          type: string
