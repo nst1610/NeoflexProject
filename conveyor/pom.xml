@@ -19,6 +19,13 @@
 	<properties>
 		<java.version>17</java.version>
 		<org.mapstruct.version>1.5.5.Final</org.mapstruct.version>
+		<lombok.version>1.18.28</lombok.version>
+		<lombok.mapstruct.binding.version>0.2.0</lombok.mapstruct.binding.version>
+		<org.springframework.data.version>3.1.2</org.springframework.data.version>
+		<org.openapitools.databind.version>0.2.6</org.openapitools.databind.version>
+		<org.springdoc.version>1.7.0</org.springdoc.version>
+		<org.apache.maven.plugins.version>3.8.1</org.apache.maven.plugins.version>
+		<org.openapitools.generator.version>5.4.0</org.openapitools.generator.version>
 	</properties>
 
 	<dependencies>
@@ -29,7 +36,6 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
-			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -43,13 +49,12 @@
 		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
-			<version>1.18.28</version>
-			<scope>provided</scope>
+			<version>${lombok.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok-mapstruct-binding</artifactId>
-			<version>0.2.0</version>
+			<version>${lombok.mapstruct.binding.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -58,17 +63,17 @@
 		<dependency>
 			<groupId>org.springframework.data</groupId>
 			<artifactId>spring-data-jpa</artifactId>
-			<version>3.1.2</version>
+			<version>${org.springframework.data.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.openapitools</groupId>
 			<artifactId>jackson-databind-nullable</artifactId>
-			<version>0.2.6</version>
+			<version>${org.openapitools.databind.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springdoc</groupId>
 			<artifactId>springdoc-openapi-ui</artifactId>
-			<version>1.7.0</version>
+			<version>${org.springdoc.version}</version>
 		</dependency>
 	</dependencies>
 
@@ -81,7 +86,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
-				<version>3.8.1</version>
+				<version>${org.apache.maven.plugins.version}</version>
 				<configuration>
 					<source>1.8</source> <!-- depending on your project -->
 					<target>1.8</target> <!-- depending on your project -->
@@ -94,12 +99,12 @@
 						<path>
 							<groupId>org.projectlombok</groupId>
 							<artifactId>lombok</artifactId>
-							<version>1.18.28</version>
+							<version>${lombok.version}</version>
 						</path>
 						<path>
 							<groupId>org.projectlombok</groupId>
 							<artifactId>lombok-mapstruct-binding</artifactId>
-							<version>0.2.0</version>
+							<version>${lombok.mapstruct.binding.version}</version>
 						</path>
 						<!-- other annotation processors -->
 					</annotationProcessorPaths>
@@ -108,7 +113,7 @@
 			<plugin>
 				<groupId>org.openapitools</groupId>
 				<artifactId>openapi-generator-maven-plugin</artifactId>
-				<version>5.4.0</version>
+				<version>${org.openapitools.generator.version}</version>
 				<executions>
 					<execution>
 						<phase>generate-resources</phase>
@@ -128,7 +133,7 @@
 							<importMappings>
 								<importMapping>java.util.Date=java.time.LocalDateTime</importMapping>
 							</importMappings>
-							<inputSpec>${project.basedir}/src/main/resources/open-api/openapi.yaml</inputSpec>
+							<inputSpec>${project.basedir}/src/main/resources/open-api/api.yaml</inputSpec>
 							<configOptions>
 								<delegatePattern>false</delegatePattern>
 								<interfaceOnly>true</interfaceOnly>
@@ -136,6 +141,7 @@
 								<library>spring-mvc</library>
 								<dateLibrary>java17</dateLibrary>
 								<java17>true</java17>
+								<additionalModelTypeAnnotations>@lombok.Data @lombok.AllArgsConstructor @lombok.Builder</additionalModelTypeAnnotations>
 							</configOptions>
 						</configuration>
 					</execution>

@@ -1,8 +1,9 @@
 package com.github.nst1610.neoflex.project.conveyor.service;
 
 import com.github.nst1610.neoflex.project.conveyor.calculator.CreditCalculator;
-import com.github.nst1610.neoflex.project.conveyor.model.Credit;
-import com.github.nst1610.neoflex.project.conveyor.model.ScoringData;
+import com.github.nst1610.neoflex.project.conveyor.dto.CreditDTO;
+import com.github.nst1610.neoflex.project.conveyor.dto.PaymentScheduleElement;
+import com.github.nst1610.neoflex.project.conveyor.dto.ScoringDataDTO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -11,44 +12,49 @@ import org.springframework.stereotype.Service;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.Period;
+import java.util.List;
 
 @Service
 @Slf4j
 @RequiredArgsConstructor
 public class CreditService {
-    @Value("${baseRate}")
+    @Value("${rate.base}")
     private BigDecimal BASE_RATE;
     private final ScoringService scoringService;
     private final CreditCalculator calculator;
 
-    public Credit getCalculatedCreditOffer(ScoringData scoringData){
+    public CreditDTO getCalculatedCreditOffer(ScoringDataDTO scoringData){
         log.info("Начало расчета параметров кредита.\n");
 
         scoringService.validateScoringData(scoringData);
 
-        Credit credit = new Credit();
-        credit.setAmount(scoringData.getAmount());
-        credit.setTerm(scoringData.getTerm());
-        credit.setRate(calculateRate(scoringData));
-        credit.setMonthlyPayment(
-                calculator.calculateMonthlyPayment(calculator.calculateTotalAmount(scoringData.getAmount(),
-                                scoringData.getIsInsuranceEnabled()), scoringData.getTerm(), credit.getRate()));
-        credit.setIsInsuranceEnabled(scoringData.getIsInsuranceEnabled());
-        credit.setIsSalaryClient(scoringData.getIsSalaryClient());
-        credit.setPaymentSchedule(calculator.getPaymentSchedule(credit.getTerm(), credit.getMonthlyPayment(),
-                calculator.calculateTotalAmount(scoringData.getAmount(), credit.getIsInsuranceEnabled()),
-                credit.getRate()));
-        credit.setPsk(calculator.calculatePsk(
-                calculator.calculateTotalAmountWithPercent(scoringData.getAmount(), credit.getIsInsuranceEnabled(),
-                        credit.getPaymentSchedule()),
-                scoringData.getAmount(), credit.getTerm()));
+        BigDecimal amount = scoringData.getAmount();
+        Integer term = scoringData.getTerm();
+        BigDecimal rate = calculateRate(scoringData);
+        Boolean isInsuranceEnabled = scoringData.getIsInsuranceEnabled();
+        Boolean isSalaryClient = scoringData.getIsSalaryClient();
+        BigDecimal monthlyPayment = calculator.calculateMonthlyPayment(calculator.calculateTotalAmount(amount,
+                isInsuranceEnabled), term, rate);
+        List<PaymentScheduleElement> paymentSchedule = calculator.getPaymentSchedule(term, monthlyPayment,
+                calculator.calculateTotalAmount(amount, isInsuranceEnabled), rate);
+        BigDecimal psk = calculator.calculatePsk(
+                calculator.calculateTotalAmountWithPercent(amount, isInsuranceEnabled,
+                        paymentSchedule), amount, term);
 
         log.info("Параметры кредита рассчитаны.\n");
 
-        return credit;
+        return CreditDTO.builder()
+                .amount(amount)
+                .term(term)
+                .rate(rate)
+                .monthlyPayment(monthlyPayment)
+                .isInsuranceEnabled(isInsuranceEnabled)
+                .isSalaryClient(isSalaryClient)
+                .paymentSchedule(paymentSchedule)
+                .psk(psk).build();
     }
 
-    private BigDecimal calculateRate(ScoringData scoringData){
+    private BigDecimal calculateRate(ScoringDataDTO scoringData){
         log.info("Начало расчета процентной ставки.\n");
 
         BigDecimal rate = calculator.calculateRateByInsurance(scoringData.getIsInsuranceEnabled(), BASE_RATE);
@@ -57,14 +63,14 @@ public class CreditService {
         rate = calculator.calculateRateByPosition(scoringData.getEmployment().getPosition(), rate);
         rate = calculator.calculateRateByMaritalStatus(scoringData.getMaritalStatus(), rate);
         rate = calculator.calculateRateByDependentAmount(scoringData.getDependentAmount(), rate);
-        rate = calculator.calculateRateByGender(scoringData.getGender(), calculateAge(scoringData.getBirthdate()), rate);
+        rate = calculator.calculateRateByGender(scoringData.getGender(), calculateAge(scoringData.getBirthDate()), rate);
 
         log.info("Процентная ставка рассчитана.\n");
         return rate;
     }
 
     private Integer calculateAge(LocalDate birthDate){
-        return Period.between(LocalDate.now(), birthDate).getYears();
+        return Period.between(birthDate, LocalDate.now()).getYears();
     }
 
 

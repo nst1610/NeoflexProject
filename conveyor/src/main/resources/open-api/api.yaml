@@ -1,5 +1,5 @@
 openapi: 3.0.3
-info: 
+info:
   title: Credit conveyor microservice
   version: 1.0.0
 servers:
@@ -8,15 +8,15 @@ paths:
   /conveyor/offers:
     post:
       summary: Pre-scoring and calculation of possible loan offers
-      tags: 
+      tags:
         - Conveyor
-      operationId: getAllPossibleOffers
+      operationId: possibleOffersForClient
       requestBody:
         required: true
         content:
-          application/json: 
-            schema: 
-              $ref: "#/components/schemas/LoanApplicationRequestDto"
+          application/json:
+            schema:
+              $ref: "#/components/schemas/LoanApplicationRequestDTO"
       responses:
         '200':
           description: OK
@@ -25,7 +25,7 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: "#/components/schemas/LoanOfferDto"
+                  $ref: "#/components/schemas/LoanOfferDTO"
         '400':
           description: Bad Request
           content:
@@ -38,20 +38,20 @@ paths:
       summary: Scoring  and full calculation loan parameters
       tags:
         - Conveyor
-      operationId: getFullCalculatedParameters
+      operationId: calculatedCreditConditions
       requestBody:
         required: true
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/ScoringDataDto"
+              $ref: "#/components/schemas/ScoringDataDTO"
       responses:
         '200':
           description: OK
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/CreditDto"
+                $ref: "#/components/schemas/CreditDTO"
         '400':
           description: Bad Request
           content:
@@ -59,9 +59,9 @@ paths:
               schema:
                 $ref: "#/components/schemas/ErrorResponse"
 
-components: 
+components:
   schemas:
-    LoanApplicationRequestDto:
+    LoanApplicationRequestDTO:
       type: object
       properties:
         amount:
@@ -84,7 +84,7 @@ components:
         email:
           type: string
           example: ivan@mail.ru
-        birthdate:
+        birthDate:
           type: string
           format: date
           example: 1999-10-15
@@ -95,10 +95,10 @@ components:
           type: string
           example: 546558
 
-    LoanOfferDto:
+    LoanOfferDTO:
       type: object
       properties:
-        applicationId: 
+        applicationId:
           type: integer
           format: int64
           example: 1
@@ -127,7 +127,7 @@ components:
         isSalaryClient:
           type: boolean
 
-    ScoringDataDto:
+    ScoringDataDTO:
       type: object
       properties:
         amount:
@@ -152,9 +152,9 @@ components:
           enum:
             - MALE
             - FEMALE
-            - NOT BINARY
+            - NOT_BINARY
           example: MALE
-        birthdate:
+        birthDate:
           type: string
           format: date
           example: 1999-10-15
@@ -181,7 +181,7 @@ components:
           format: int32
           example: 2
         employment:
-          $ref: '#/components/schemas/EmploymentDto'
+          $ref: '#/components/schemas/EmploymentDTO'
         account:
           type: string
           example: 666666666666
@@ -190,7 +190,7 @@ components:
         isSalaryClient:
           type: boolean
 
-    CreditDto:
+    CreditDTO:
       type: object
       properties:
         amount:
@@ -222,7 +222,7 @@ components:
           items:
             $ref: '#/components/schemas/PaymentScheduleElement'
 
-    EmploymentDto:
+    EmploymentDTO:
       type: object
       properties:
         employmentStatus:
@@ -230,8 +230,8 @@ components:
           enum:
             - EMPLOYED
             - UNEMPLOYED
-            - SELF-EMPLOYED
-            - BUSINESS OWNER
+            - SELF_EMPLOYED
+            - BUSINESS_OWNER
           example: EMPLOYED
         employerINN:
           type: string
@@ -291,5 +291,5 @@ components:
       properties:
         message:
           type: string
-        timeStamp: 
+        timeStamp:
           type: string
