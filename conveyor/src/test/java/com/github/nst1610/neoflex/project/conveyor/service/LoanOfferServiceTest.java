@@ -1,5 +1,6 @@
 package com.github.nst1610.neoflex.project.conveyor.service;
 
+import com.github.nst1610.neoflex.project.conveyor.ConveyorTestData;
 import com.github.nst1610.neoflex.project.conveyor.calculator.CreditCalculator;
 import com.github.nst1610.neoflex.project.conveyor.dto.LoanApplicationRequestDTO;
 import com.github.nst1610.neoflex.project.conveyor.dto.LoanOfferDTO;
@@ -27,7 +28,6 @@ public class LoanOfferServiceTest {
     private static PreScoringService preScoringService;
     private static CreditCalculator calculator;
     private static LoanOfferService loanOfferService;
-    private static LoanApplicationRequestDTO loanApplicationRequestDTO;
 
     @BeforeAll
     static void init() {
@@ -35,22 +35,11 @@ public class LoanOfferServiceTest {
         calculator = new CreditCalculator();
         loanOfferService = new LoanOfferService(preScoringService, calculator);
         ReflectionTestUtils.setField(loanOfferService, "BASE_RATE", BigDecimal.valueOf(10));
-        loanApplicationRequestDTO = LoanApplicationRequestDTO.builder()
-                .amount(BigDecimal.valueOf(500000))
-                .term(12)
-                .firstName("Ivan")
-                .lastName("Ivanov")
-                .middleName("Ivanovich")
-                .email("ivan@mail.ru")
-                .birthDate(LocalDate.parse("1911-11-11"))
-                .passportSeries("1111")
-                .passportNumber("222222")
-                .build();
     }
 
     @Test
     void createLoanOfferForClientTest() {
-        List<LoanOfferDTO> response = loanOfferService.createLoanOfferForClient(loanApplicationRequestDTO);
+        List<LoanOfferDTO> response = loanOfferService.createLoanOfferForClient(ConveyorTestData.loanApplicationRequest);
         assertEquals(4, response.size());
     }
 }
