@@ -20,17 +20,17 @@ public class ConveyorController implements ConveyorApi {
 
     @Override
     public ResponseEntity<List<LoanOfferDTO>> possibleOffersForClient(
-            @Valid @RequestBody LoanApplicationRequestDTO loanApplicationRequestDTO
+            @Valid @RequestBody LoanApplicationRequestDTO loanApplicationRequest
     ){
-        return new ResponseEntity<>(loanOfferService.createLoanOfferForClient(loanApplicationRequestDTO),
+        return new ResponseEntity<>(loanOfferService.createLoanOfferForClient(loanApplicationRequest),
                 HttpStatus.OK);
     }
 
     @Override
     public ResponseEntity<CreditDTO> calculatedCreditConditions(
-            @Valid @RequestBody ScoringDataDTO scoringDataDTO
+            @Valid @RequestBody ScoringDataDTO scoringData
     ){
-        return new ResponseEntity<>(creditService.getCalculatedCreditOffer(scoringDataDTO),
+        return new ResponseEntity<>(creditService.getCalculatedCreditOffer(scoringData),
                 HttpStatus.OK);
     }
 }

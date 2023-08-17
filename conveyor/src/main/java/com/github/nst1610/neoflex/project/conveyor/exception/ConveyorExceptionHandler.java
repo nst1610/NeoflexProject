@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 @RestControllerAdvice
-public class GlobalExceptionHandler {
+public class ConveyorExceptionHandler {
 
     @ExceptionHandler(value = {ScoringException.class, DataException.class})
     public ResponseEntity<ErrorResponse> handleException(RuntimeException ex){
