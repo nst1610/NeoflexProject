@@ -1,4 +1,4 @@
-package com.github.nst1610.neoflex.project.deal.dto;
+package com.github.nst1610.neoflex.project.deal.api.dto;
 
 import com.github.nst1610.neoflex.project.deal.model.PaymentScheduleElement;
 import lombok.Builder;

@@ -1,21 +1,21 @@
 package com.github.nst1610.neoflex.project.conveyor;
 
 import com.github.nst1610.neoflex.project.conveyor.dto.EmploymentDTO;
-import com.github.nst1610.neoflex.project.conveyor.dto.LoanApplicationRequestDTO;
-import com.github.nst1610.neoflex.project.conveyor.dto.ScoringDataDTO;
+import com.github.nst1610.neoflex.project.conveyor.dto.LoanApplicationRequest;
+import com.github.nst1610.neoflex.project.conveyor.dto.ScoringData;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
 public class ConveyorTestData {
-    public static LoanApplicationRequestDTO loanApplicationRequest;
-    public static LoanApplicationRequestDTO invalidLoanApplicationRequest;
+    public static LoanApplicationRequest loanApplicationRequest;
+    public static LoanApplicationRequest invalidLoanApplicationRequest;
     private static EmploymentDTO employment;
-    public static ScoringDataDTO scoringData;
-    public static ScoringDataDTO invalidScoringData;
+    public static ScoringData scoringData;
+    public static ScoringData invalidScoringData;
 
     static {
-        loanApplicationRequest = LoanApplicationRequestDTO.builder()
+        loanApplicationRequest = LoanApplicationRequest.builder()
                 .amount(BigDecimal.valueOf(500000))
                 .term(12)
                 .firstName("Ivan")
@@ -26,7 +26,7 @@ public class ConveyorTestData {
                 .passportSeries("1111")
                 .passportNumber("222222")
                 .build();
-        invalidLoanApplicationRequest = LoanApplicationRequestDTO.builder()
+        invalidLoanApplicationRequest = LoanApplicationRequest.builder()
                 .amount(BigDecimal.valueOf(100)) // incorrect field
                 .term(12)
                 .firstName("Ivan")
@@ -45,38 +45,38 @@ public class ConveyorTestData {
                 .workExperienceTotal(36)
                 .workExperienceCurrent(6)
                 .build();
-        scoringData = ScoringDataDTO.builder()
+        scoringData = ScoringData.builder()
                 .amount(BigDecimal.valueOf(500000))
                 .term(12)
                 .firstName("Ivan")
                 .lastName("Ivanovich")
                 .middleName("Ivanov")
-                .gender(ScoringDataDTO.GenderEnum.MALE)
+                .gender(ScoringData.GenderEnum.MALE)
                 .birthDate(LocalDate.parse("1990-11-11"))
                 .passportSeries("1111")
                 .passportNumber("222222")
                 .passportIssueDate(LocalDate.parse("2010-11-11"))
                 .passportIssueBranch("Отеление УФМС России")
-                .maritalStatus(ScoringDataDTO.MaritalStatusEnum.SINGLE)
+                .maritalStatus(ScoringData.MaritalStatusEnum.SINGLE)
                 .dependentAmount(0)
                 .employment(employment)
                 .account("55555")
                 .isInsuranceEnabled(true)
                 .isSalaryClient(false)
                 .build();
-        invalidScoringData = ScoringDataDTO.builder()
+        invalidScoringData = ScoringData.builder()
                 .amount(BigDecimal.valueOf(10000000))
                 .term(12)
                 .firstName("Ivan")
                 .lastName("Ivanovich")
                 .middleName("Ivanov")
-                .gender(ScoringDataDTO.GenderEnum.MALE)
+                .gender(ScoringData.GenderEnum.MALE)
                 .birthDate(LocalDate.parse("1990-11-11"))
                 .passportSeries("1111")
                 .passportNumber("222222")
                 .passportIssueDate(LocalDate.parse("2010-11-11"))
                 .passportIssueBranch("Отеление УФМС России")
-                .maritalStatus(ScoringDataDTO.MaritalStatusEnum.SINGLE)
+                .maritalStatus(ScoringData.MaritalStatusEnum.SINGLE)
                 .dependentAmount(0)
                 .employment(employment)
                 .account("55555")

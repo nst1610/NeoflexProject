@@ -1,10 +1,10 @@
 package com.github.nst1610.neoflex.project.deal;
 
-import com.github.nst1610.neoflex.project.deal.dto.CreditDTO;
-import com.github.nst1610.neoflex.project.deal.dto.LoanOfferDTO;
-import com.github.nst1610.neoflex.project.deal.entity.Application;
-import com.github.nst1610.neoflex.project.deal.entity.Client;
-import com.github.nst1610.neoflex.project.deal.entity.Credit;
+import com.github.nst1610.neoflex.project.deal.api.dto.CreditDTO;
+import com.github.nst1610.neoflex.project.deal.api.dto.LoanOffer;
+import com.github.nst1610.neoflex.project.deal.repository.entity.Application;
+import com.github.nst1610.neoflex.project.deal.repository.entity.Client;
+import com.github.nst1610.neoflex.project.deal.repository.entity.Credit;
 import com.github.nst1610.neoflex.project.deal.model.Employment;
 import com.github.nst1610.neoflex.project.deal.model.Passport;
 import com.github.nst1610.neoflex.project.deal.model.enums.ApplicationStatus;
@@ -19,7 +19,7 @@ import java.util.List;
 import static org.mockito.Mockito.mock;
 
 public class DealTestData {
-    public static List<LoanOfferDTO> expectedLoanOfferList;
+    public static List<LoanOffer> expectedLoanOfferList;
     public static Application application;
     public static Client client;
     public static CreditDTO creditDTO;
@@ -27,7 +27,7 @@ public class DealTestData {
 
     static {
         expectedLoanOfferList = List.of(
-                LoanOfferDTO.builder().applicationId(1L)
+                LoanOffer.builder().applicationId(1L)
                         .requestedAmount(BigDecimal.valueOf(100000.00))
                         .totalAmount(BigDecimal.valueOf(108000.00))
                         .term(12)
@@ -37,7 +37,7 @@ public class DealTestData {
                         .isSalaryClient(false)
                         .build(),
 
-                LoanOfferDTO.builder().applicationId(1L)
+                LoanOffer.builder().applicationId(1L)
                         .requestedAmount(BigDecimal.valueOf(100000.00))
                         .totalAmount(BigDecimal.valueOf(108000.00))
                         .term(12)
@@ -47,7 +47,7 @@ public class DealTestData {
                         .isSalaryClient(true)
                         .build(),
 
-                LoanOfferDTO.builder().applicationId(1L)
+                LoanOffer.builder().applicationId(1L)
                         .requestedAmount(BigDecimal.valueOf(100000.00))
                         .totalAmount(BigDecimal.valueOf(108000.00))
                         .term(12)
@@ -57,7 +57,7 @@ public class DealTestData {
                         .isSalaryClient(false)
                         .build(),
 
-                LoanOfferDTO.builder().applicationId(1L)
+                LoanOffer.builder().applicationId(1L)
                         .requestedAmount(BigDecimal.valueOf(100000.00))
                         .totalAmount(BigDecimal.valueOf(108000.00))
                         .term(12)
@@ -69,7 +69,7 @@ public class DealTestData {
 
         application = Application.builder()
                 .applicationId(1L)
-                .appliedOffer(mock(LoanOfferDTO.class))
+                .appliedOffer(mock(LoanOffer.class))
                 .client(mock(Client.class))
                 .creationDate(LocalDate.now())
                 .status(ApplicationStatus.PREAPPROVAL)

@@ -1,4 +1,4 @@
-package com.github.nst1610.neoflex.project.deal.exception;
+package com.github.nst1610.neoflex.project.deal.api.exception;
 
 import com.github.nst1610.neoflex.project.deal.util.ErrorResponse;
 import feign.FeignException;

@@ -2,7 +2,7 @@ package com.github.nst1610.neoflex.project.conveyor.calculator;
 
 import com.github.nst1610.neoflex.project.conveyor.dto.EmploymentDTO;
 import com.github.nst1610.neoflex.project.conveyor.dto.PaymentScheduleElement;
-import com.github.nst1610.neoflex.project.conveyor.dto.ScoringDataDTO;
+import com.github.nst1610.neoflex.project.conveyor.dto.ScoringData;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -70,10 +70,10 @@ public class CreditCalculatorTest {
     @Test
     void calculateRateByMaritalStatusTest() {
         Assertions.assertEquals(0,
-                calculator.calculateRateByMaritalStatus(ScoringDataDTO.MaritalStatusEnum.MARRIED, rate)
+                calculator.calculateRateByMaritalStatus(ScoringData.MaritalStatusEnum.MARRIED, rate)
                         .compareTo(BigDecimal.valueOf(8)));
         Assertions.assertEquals(0,
-                calculator.calculateRateByMaritalStatus(ScoringDataDTO.MaritalStatusEnum.DIVORCED, rate)
+                calculator.calculateRateByMaritalStatus(ScoringData.MaritalStatusEnum.DIVORCED, rate)
                         .compareTo(BigDecimal.valueOf(11)));
     }
 
@@ -90,19 +90,19 @@ public class CreditCalculatorTest {
     @Test
     void calculateRateByGenderTest() {
         Assertions.assertEquals(0,
-                calculator.calculateRateByGender(ScoringDataDTO.GenderEnum.MALE, 40, rate)
+                calculator.calculateRateByGender(ScoringData.GenderEnum.MALE, 40, rate)
                         .compareTo(BigDecimal.valueOf(7)));
         Assertions.assertEquals(0,
-                calculator.calculateRateByGender(ScoringDataDTO.GenderEnum.MALE, 22, rate)
+                calculator.calculateRateByGender(ScoringData.GenderEnum.MALE, 22, rate)
                         .compareTo(rate));
         Assertions.assertEquals(0,
-                calculator.calculateRateByGender(ScoringDataDTO.GenderEnum.FEMALE, 40, rate)
+                calculator.calculateRateByGender(ScoringData.GenderEnum.FEMALE, 40, rate)
                         .compareTo(BigDecimal.valueOf(7)));
         Assertions.assertEquals(0,
-                calculator.calculateRateByGender(ScoringDataDTO.GenderEnum.FEMALE, 22, rate)
+                calculator.calculateRateByGender(ScoringData.GenderEnum.FEMALE, 22, rate)
                         .compareTo(rate));
         Assertions.assertEquals(0,
-                calculator.calculateRateByGender(ScoringDataDTO.GenderEnum.NOT_BINARY, 40, rate)
+                calculator.calculateRateByGender(ScoringData.GenderEnum.NOT_BINARY, 40, rate)
                         .compareTo(BigDecimal.valueOf(13)));
     }
 

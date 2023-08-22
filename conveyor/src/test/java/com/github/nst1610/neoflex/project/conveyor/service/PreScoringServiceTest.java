@@ -1,7 +1,6 @@
 package com.github.nst1610.neoflex.project.conveyor.service;
 
 import com.github.nst1610.neoflex.project.conveyor.ConveyorTestData;
-import com.github.nst1610.neoflex.project.conveyor.dto.LoanApplicationRequestDTO;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;

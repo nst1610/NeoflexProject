@@ -1,12 +1,9 @@
-package com.github.nst1610.neoflex.project.deal.entity;
+package com.github.nst1610.neoflex.project.deal.repository.entity;
 
-import com.github.nst1610.neoflex.project.deal.dto.LoanOfferDTO;
+import com.github.nst1610.neoflex.project.deal.api.dto.LoanOffer;
 import com.github.nst1610.neoflex.project.deal.model.ApplicationStatusHistory;
 import com.github.nst1610.neoflex.project.deal.model.enums.ApplicationStatus;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
@@ -15,8 +12,8 @@ import java.util.List;
 
 @Data
 @Builder
-@NoArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
 @Entity
 @Table(name = "application")
 public class Application {
@@ -42,7 +39,7 @@ public class Application {
 
     @Type(type = "io.hypersistence.utils.hibernate.type.json.JsonBinaryType")
     @Column(name = "applied_offer")
-    private LoanOfferDTO appliedOffer;
+    private LoanOffer appliedOffer;
 
     @Column(name = "sign_date")
     private LocalDate signDate;

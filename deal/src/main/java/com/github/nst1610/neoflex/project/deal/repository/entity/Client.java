@@ -1,24 +1,21 @@
-package com.github.nst1610.neoflex.project.deal.entity;
+package com.github.nst1610.neoflex.project.deal.repository.entity;
 
 import com.github.nst1610.neoflex.project.deal.model.Employment;
 import com.github.nst1610.neoflex.project.deal.model.Passport;
 import com.github.nst1610.neoflex.project.deal.model.enums.Gender;
 import com.github.nst1610.neoflex.project.deal.model.enums.MaritalStatus;
 import javax.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.hibernate.annotations.Type;
 
 import java.time.LocalDate;
 
 @Data
 @Builder
-@NoArgsConstructor
 @AllArgsConstructor
 @Entity
 @Table(name = "client")
+@NoArgsConstructor
 public class Client {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

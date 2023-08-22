@@ -1,4 +1,4 @@
-package com.github.nst1610.neoflex.project.deal.dto;
+package com.github.nst1610.neoflex.project.deal.api.dto;
 
 import com.github.nst1610.neoflex.project.deal.model.enums.Gender;
 import com.github.nst1610.neoflex.project.deal.model.enums.MaritalStatus;
@@ -9,7 +9,7 @@ import java.time.LocalDate;
 
 @Data
 @Builder
-public class FinishRegistrationRequestDTO {
+public class FinishRegistrationRequest {
     private Gender gender;
     private MaritalStatus maritalStatus;
     private Integer dependentAmount;

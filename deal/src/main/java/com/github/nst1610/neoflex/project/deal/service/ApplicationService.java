@@ -1,16 +1,14 @@
 package com.github.nst1610.neoflex.project.deal.service;
 
-import com.github.nst1610.neoflex.project.deal.entity.Application;
-import com.github.nst1610.neoflex.project.deal.exception.ApplicationNotFoundException;
+import com.github.nst1610.neoflex.project.deal.repository.entity.Application;
+import com.github.nst1610.neoflex.project.deal.api.exception.ApplicationNotFoundException;
 import com.github.nst1610.neoflex.project.deal.repository.ApplicationRepository;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Optional;
-
 @Service
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class ApplicationService {
     private final ApplicationRepository repository;
 

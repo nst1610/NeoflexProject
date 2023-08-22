@@ -2,7 +2,7 @@ package com.github.nst1610.neoflex.project.conveyor.calculator;
 
 import com.github.nst1610.neoflex.project.conveyor.dto.EmploymentDTO;
 import com.github.nst1610.neoflex.project.conveyor.dto.PaymentScheduleElement;
-import com.github.nst1610.neoflex.project.conveyor.dto.ScoringDataDTO;
+import com.github.nst1610.neoflex.project.conveyor.dto.ScoringData;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
@@ -48,7 +48,7 @@ public class CreditCalculator {
         return rate;
     }
 
-    public BigDecimal calculateRateByMaritalStatus(ScoringDataDTO.MaritalStatusEnum status, BigDecimal rate){
+    public BigDecimal calculateRateByMaritalStatus(ScoringData.MaritalStatusEnum status, BigDecimal rate){
         switch (status){
             case MARRIED:
                 return rate.subtract(BigDecimal.valueOf(2));
@@ -62,7 +62,7 @@ public class CreditCalculator {
         return dependentAmount > 1 ? rate.add(BigDecimal.valueOf(1)) : rate;
     }
 
-    public BigDecimal calculateRateByGender(ScoringDataDTO.GenderEnum gender, Integer age, BigDecimal rate){
+    public BigDecimal calculateRateByGender(ScoringData.GenderEnum gender, Integer age, BigDecimal rate){
         switch (gender){
             case MALE:
                 if (age >= MIN_AGE_FOR_MALE && age <= MAX_AGE_FOR_MALE) {

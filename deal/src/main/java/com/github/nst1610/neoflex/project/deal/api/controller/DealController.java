@@ -1,8 +1,8 @@
-package com.github.nst1610.neoflex.project.deal.controller;
+package com.github.nst1610.neoflex.project.deal.api.controller;
 
-import com.github.nst1610.neoflex.project.deal.dto.FinishRegistrationRequestDTO;
-import com.github.nst1610.neoflex.project.deal.dto.LoanApplicationRequestDTO;
-import com.github.nst1610.neoflex.project.deal.dto.LoanOfferDTO;
+import com.github.nst1610.neoflex.project.deal.api.dto.FinishRegistrationRequest;
+import com.github.nst1610.neoflex.project.deal.api.dto.LoanApplicationRequest;
+import com.github.nst1610.neoflex.project.deal.api.dto.LoanOffer;
 import com.github.nst1610.neoflex.project.deal.service.DealService;
 import com.github.nst1610.neoflex.project.deal.util.ErrorResponse;
 import io.swagger.v3.oas.annotations.Operation;
@@ -11,7 +11,7 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -21,19 +21,19 @@ import java.util.List;
 @Tag(name = "Deal", description = "Микросервис сделка")
 @RestController
 @RequestMapping("/deal")
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class DealController {
     private final DealService dealService;
 
     @Operation(
             description = "Расчет возможных условий кредита",
             responses = {
-                    @ApiResponse(responseCode = "200", description = "OK", content = @Content(mediaType = "application/json", schema = @Schema(implementation =  LoanOfferDTO.class))),
+                    @ApiResponse(responseCode = "200", description = "OK", content = @Content(mediaType = "application/json", schema = @Schema(implementation =  LoanOffer.class))),
                     @ApiResponse(responseCode = "400", description = "Bad Request", content = @Content(mediaType = "application/json", schema = @Schema(implementation =  ErrorResponse.class)))
             }
     )
     @PostMapping("/application")
-    public ResponseEntity<List<LoanOfferDTO>> calculatePossibleOffers(@RequestBody LoanApplicationRequestDTO
+    public ResponseEntity<List<LoanOffer>> calculatePossibleOffers(@RequestBody LoanApplicationRequest
                                                                                   loanApplicationRequest) {
         return new ResponseEntity<>(dealService.getPossibleLoanOffers(loanApplicationRequest),
                 HttpStatus.OK);
@@ -47,7 +47,7 @@ public class DealController {
             }
     )
     @PutMapping("/offer")
-    public ResponseEntity<Void> chooseOffer(@RequestBody LoanOfferDTO loanOffer) {
+    public ResponseEntity<Void> chooseOffer(@RequestBody LoanOffer loanOffer) {
         dealService.chooseOffer(loanOffer);
         return new ResponseEntity<>(HttpStatus.OK);
     }
@@ -61,7 +61,7 @@ public class DealController {
     )
     @PutMapping("/calculate/{applicationId}")
     public ResponseEntity<Void> calculateCreditConditions(@Parameter(description = "Id заявки для расчета") @PathVariable Long applicationId,
-                                                          @RequestBody FinishRegistrationRequestDTO
+                                                          @RequestBody FinishRegistrationRequest
                                                                   finishRegistrationRequest) {
         dealService.calculateCreditConditions(finishRegistrationRequest, applicationId);
         return new ResponseEntity<>(HttpStatus.OK);

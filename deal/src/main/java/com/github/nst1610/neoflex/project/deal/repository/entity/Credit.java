@@ -1,11 +1,8 @@
-package com.github.nst1610.neoflex.project.deal.entity;
+package com.github.nst1610.neoflex.project.deal.repository.entity;
 
 import com.github.nst1610.neoflex.project.deal.model.PaymentScheduleElement;
 import com.github.nst1610.neoflex.project.deal.model.enums.CreditStatus;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
@@ -14,10 +11,10 @@ import java.util.List;
 
 @Data
 @Builder
-@NoArgsConstructor
 @AllArgsConstructor
 @Entity
 @Table(name = "credit")
+@NoArgsConstructor
 public class Credit {
     @Id
     @Column(name = "credit_id")
