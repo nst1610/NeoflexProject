@@ -1,8 +1,8 @@
 package com.github.nst1610.neoflex.project.conveyor.service;
 
 import com.github.nst1610.neoflex.project.conveyor.calculator.CreditCalculator;
-import com.github.nst1610.neoflex.project.conveyor.dto.LoanApplicationRequestDTO;
-import com.github.nst1610.neoflex.project.conveyor.dto.LoanOfferDTO;
+import com.github.nst1610.neoflex.project.conveyor.dto.LoanApplicationRequest;
+import com.github.nst1610.neoflex.project.conveyor.dto.LoanOffer;
 import com.github.nst1610.neoflex.project.conveyor.exception.DataException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -26,7 +26,7 @@ public class LoanOfferService {
     private final PreScoringService preScoringService;
     private final CreditCalculator calculator;
 
-    public List<LoanOfferDTO> createLoanOfferForClient(LoanApplicationRequestDTO loanApplicationRequest){
+    public List<LoanOffer> createLoanOfferForClient(LoanApplicationRequest loanApplicationRequest){
         Map<String, String> preScoringResult = preScoringService.preScore(loanApplicationRequest);
         if (!preScoringResult.isEmpty()) {
             throw new DataException(preScoringResult.toString());
@@ -34,7 +34,7 @@ public class LoanOfferService {
 
         log.info("Начало формирования возможных кредитных предложений для клиента.\n");
 
-        List<LoanOfferDTO> offers = new ArrayList<>();
+        List<LoanOffer> offers = new ArrayList<>();
 
         offers.add(createOffer(1L, loanApplicationRequest, false, false));
         offers.add(createOffer(2L, loanApplicationRequest, false, true));
@@ -43,11 +43,11 @@ public class LoanOfferService {
 
         log.info("Возможные кредитные предложения сформированы.\n");
         return offers.stream()
-                .sorted(Comparator.comparing(LoanOfferDTO::getRate).reversed())
+                .sorted(Comparator.comparing(LoanOffer::getRate).reversed())
                 .collect(Collectors.toList());
     }
 
-    public LoanOfferDTO createOffer(Long applicationId, LoanApplicationRequestDTO loanApplicationRequest,
+    public LoanOffer createOffer(Long applicationId, LoanApplicationRequest loanApplicationRequest,
                                  Boolean isInsuranceEnabled, Boolean isSalaryClient){
         log.info("Начало формирования кпредитного предложения с параметрами: наличие страховки - " +
                 isInsuranceEnabled + ", зарплатный клиент - " + isSalaryClient + "\n");
@@ -60,7 +60,7 @@ public class LoanOfferService {
 
         log.info("Конец формирования кпредитного предложения с параметрами: наличие страховки - " +
                 isInsuranceEnabled + ", зарплатный клиент - " + isSalaryClient + "\n");
-        return LoanOfferDTO.builder()
+        return LoanOffer.builder()
                 .applicationId(applicationId)
                 .requestedAmount(requestedAmount)
                 .totalAmount(totalAmount)

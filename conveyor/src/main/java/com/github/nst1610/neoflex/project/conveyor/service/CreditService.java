@@ -3,7 +3,7 @@ package com.github.nst1610.neoflex.project.conveyor.service;
 import com.github.nst1610.neoflex.project.conveyor.calculator.CreditCalculator;
 import com.github.nst1610.neoflex.project.conveyor.dto.CreditDTO;
 import com.github.nst1610.neoflex.project.conveyor.dto.PaymentScheduleElement;
-import com.github.nst1610.neoflex.project.conveyor.dto.ScoringDataDTO;
+import com.github.nst1610.neoflex.project.conveyor.dto.ScoringData;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -23,7 +23,7 @@ public class CreditService {
     private final ScoringService scoringService;
     private final CreditCalculator calculator;
 
-    public CreditDTO getCalculatedCreditOffer(ScoringDataDTO scoringData){
+    public CreditDTO getCalculatedCreditOffer(ScoringData scoringData){
         log.info("Начало расчета параметров кредита.\n");
 
         scoringService.validateScoringData(scoringData);
@@ -54,7 +54,7 @@ public class CreditService {
                 .psk(psk).build();
     }
 
-    private BigDecimal calculateRate(ScoringDataDTO scoringData){
+    private BigDecimal calculateRate(ScoringData scoringData){
         log.info("Начало расчета процентной ставки.\n");
 
         BigDecimal rate = calculator.calculateRateByInsurance(scoringData.getIsInsuranceEnabled(), BASE_RATE);

@@ -1,6 +1,6 @@
 package com.github.nst1610.neoflex.project.conveyor.service;
 
-import com.github.nst1610.neoflex.project.conveyor.dto.LoanApplicationRequestDTO;
+import com.github.nst1610.neoflex.project.conveyor.dto.LoanApplicationRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
@@ -18,7 +18,7 @@ import static com.github.nst1610.neoflex.project.conveyor.util.Pattern.*;
 @Slf4j
 public class PreScoringService {
 
-    public Map<String, String> preScore(LoanApplicationRequestDTO loanApplicationRequest){
+    public Map<String, String> preScore(LoanApplicationRequest loanApplicationRequest){
         log.info("Начало прескоринга.");
 
         Map<String, String> incorrectField = new HashMap<>();

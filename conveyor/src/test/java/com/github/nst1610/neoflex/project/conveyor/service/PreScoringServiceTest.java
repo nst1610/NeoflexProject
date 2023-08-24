@@ -1,6 +1,6 @@
 package com.github.nst1610.neoflex.project.conveyor.service;
 
-import com.github.nst1610.neoflex.project.conveyor.dto.LoanApplicationRequestDTO;
+import com.github.nst1610.neoflex.project.conveyor.ConveyorTestData;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -18,35 +18,13 @@ public class PreScoringServiceTest {
 
     @Test
     void preScoreValidData() {
-        LoanApplicationRequestDTO validData = LoanApplicationRequestDTO.builder()
-                .amount(BigDecimal.valueOf(500000))
-                .term(12)
-                .firstName("Ivan")
-                .lastName("Ivanov")
-                .middleName("Ivanovich")
-                .email("ivan@mail.ru")
-                .birthDate(LocalDate.parse("1999-11-11"))
-                .passportSeries("1111")
-                .passportNumber("222222")
-                .build();
 
-        Assertions.assertEquals(0, service.preScore(validData).size());
+        Assertions.assertEquals(0, service.preScore(ConveyorTestData.loanApplicationRequest).size());
     }
 
     @Test
     void preScoreInvalidData() {
-        LoanApplicationRequestDTO invalidData = LoanApplicationRequestDTO.builder()
-                .amount(BigDecimal.valueOf(100)) // incorrect field
-                .term(12)
-                .firstName("Ivan")
-                .lastName("Ivanov")
-                .middleName("Ivanovich")
-                .email("ivan@mail.ru")
-                .birthDate(LocalDate.parse("1999-11-11"))
-                .passportSeries("1111")
-                .passportNumber("222222")
-                .build();
 
-        Assertions.assertEquals(1, service.preScore(invalidData).size());
+        Assertions.assertEquals(1, service.preScore(ConveyorTestData.invalidLoanApplicationRequest).size());
     }
 }

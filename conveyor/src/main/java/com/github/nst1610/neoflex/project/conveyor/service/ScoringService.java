@@ -1,7 +1,7 @@
 package com.github.nst1610.neoflex.project.conveyor.service;
 
 import com.github.nst1610.neoflex.project.conveyor.dto.EmploymentDTO;
-import com.github.nst1610.neoflex.project.conveyor.dto.ScoringDataDTO;
+import com.github.nst1610.neoflex.project.conveyor.dto.ScoringData;
 import com.github.nst1610.neoflex.project.conveyor.exception.ScoringException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -16,7 +16,7 @@ import static com.github.nst1610.neoflex.project.conveyor.util.Constant.*;
 @Slf4j
 public class ScoringService {
 
-    public void validateScoringData(ScoringDataDTO scoringData){
+    public void validateScoringData(ScoringData scoringData){
         log.info("Начало скоринга.");
 
         validateAmount(scoringData.getAmount(), scoringData.getEmployment().getSalary());
