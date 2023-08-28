@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 public class ApplicationExceptionHandler {
 
     @ExceptionHandler(PrescoringException.class)
-    public ResponseEntity<ErrorResponse> handleException(RuntimeException ex){
+    public ResponseEntity<ErrorResponse> handleException(PrescoringException ex){
         ErrorResponse response = new ErrorResponse(ex.getMessage(), LocalDateTime.now());
 
         return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
