@@ -20,6 +20,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -45,7 +46,7 @@ public class DealService {
 
         Application application = Application.builder()
                 .client(client)
-                .creationDate(LocalDate.now())
+                .creationDate(LocalDateTime.now())
                 .build();
         updateStatusHistory(application, ApplicationStatus.PREAPPROVAL);
         log.info("Создана заявка {}", application);

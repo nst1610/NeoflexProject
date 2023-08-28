@@ -8,6 +8,7 @@ import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Data
@@ -35,14 +36,14 @@ public class Application {
     private ApplicationStatus status;
 
     @Column(name = "creation_date")
-    private LocalDate creationDate;
+    private LocalDateTime creationDate;
 
     @Type(type = "io.hypersistence.utils.hibernate.type.json.JsonBinaryType")
     @Column(name = "applied_offer")
     private LoanOffer appliedOffer;
 
     @Column(name = "sign_date")
-    private LocalDate signDate;
+    private LocalDateTime signDate;
 
     @Column(name = "ses_code")
     private String sesCode;
