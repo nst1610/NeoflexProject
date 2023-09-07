@@ -4,6 +4,7 @@ import com.github.nst1610.neoflex.project.deal.api.dto.FinishRegistrationRequest
 import com.github.nst1610.neoflex.project.deal.api.dto.LoanApplicationRequest;
 import com.github.nst1610.neoflex.project.deal.api.dto.LoanOffer;
 import com.github.nst1610.neoflex.project.deal.service.DealService;
+import com.github.nst1610.neoflex.project.deal.service.DocumentService;
 import com.github.nst1610.neoflex.project.deal.util.ErrorResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
