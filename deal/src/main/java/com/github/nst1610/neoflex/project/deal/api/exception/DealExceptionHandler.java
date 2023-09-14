@@ -23,4 +23,18 @@ public class DealExceptionHandler {
 
         return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
     }
+
+    @ExceptionHandler(value = ApplicationStatusException.class)
+    public ResponseEntity<ErrorResponse> handleException(ApplicationStatusException ex){
+        ErrorResponse response = new ErrorResponse(ex.getMessage(), System.currentTimeMillis());
+
+        return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(value = VerifySesCodeException.class)
+    public ResponseEntity<ErrorResponse> handleException(VerifySesCodeException ex){
+        ErrorResponse response = new ErrorResponse("Некорректный SES-code.", System.currentTimeMillis());
+
+        return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+    }
 }

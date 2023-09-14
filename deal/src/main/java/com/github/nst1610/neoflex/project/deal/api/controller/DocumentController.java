@@ -4,10 +4,7 @@ import com.github.nst1610.neoflex.project.deal.service.DocumentService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
@@ -15,15 +12,22 @@ import org.springframework.web.bind.annotation.RestController;
 public class DocumentController {
     private final DocumentService documentService;
 
-    @PostMapping("/{applicationId}/send")
+    @PutMapping("/{applicationId}/send")
     public ResponseEntity<Void> sendDocuments(@PathVariable Long applicationId) {
         documentService.sendDocuments(applicationId);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @PostMapping("/{applicationId}/sign")
-    public ResponseEntity<Void> signDocuments(@PathVariable Long applicationId) {
-        documentService.signDocuments(applicationId);
+    @PutMapping("/{applicationId}/sign")
+    public ResponseEntity<Void> signDocumentsRequest(@PathVariable Long applicationId) {
+        documentService.signDocumentsRequest(applicationId);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @PostMapping("/{applicationId}/code")
+    public ResponseEntity<Void> verifySesCode(@PathVariable Long applicationId,
+                                                        @RequestBody String sesCode) {
+        documentService.sendCreditIssuedRequest(applicationId, sesCode);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 }

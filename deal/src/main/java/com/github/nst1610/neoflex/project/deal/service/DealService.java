@@ -29,14 +29,12 @@ import java.util.Objects;
 @RequiredArgsConstructor
 @Slf4j
 public class DealService {
-    private final ClientMapper clientMapper;
     private final EmploymentMapper employmentMapper;
     private final CreditMapper creditMapper;
     private final ClientService clientService;
     private final CreditService creditService;
     private final ApplicationService applicationService;
     private final ConveyorMSClient conveyorMSClient;
-    private final DocumentService documentService;
 
     public List<LoanOffer> getPossibleLoanOffers(LoanApplicationRequest loanApplicationRequest) {
         log.info("Формирование возможных кредитных предложений для клиента.");
@@ -70,7 +68,6 @@ public class DealService {
         log.info("Заявке назначено выбранное кредитное предложение.");
         applicationService.save(application);
         log.info("Заявка сохранена.");
-        documentService.finishRegistration(loanOffer.getApplicationId());
     }
 
     public void calculateCreditConditions(FinishRegistrationRequest finishRegistrationRequest, Long applicationId) {
@@ -94,8 +91,6 @@ public class DealService {
         updateStatusHistory(application, ApplicationStatus.CC_APPROVED);
         applicationService.save(application);
         log.info("Заявка сохранена.");
-
-        documentService.createDocuments(applicationId);
     }
 
     public void updateStatusHistory(Application application, ApplicationStatus status) {

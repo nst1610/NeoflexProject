@@ -2,7 +2,7 @@ package com.github.nst1610.neoflex.project.deal.configuration;
 
 import com.github.nst1610.neoflex.project.deal.model.EmailMessage;
 import org.apache.kafka.clients.producer.ProducerConfig;
-import org.apache.kafka.common.serialization.LongSerializer;
+import org.apache.kafka.common.serialization.StringSerializer;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -16,25 +16,20 @@ import java.util.Map;
 
 @Configuration
 public class KafkaConfiguration {
-    @Value("${spring.kafka.bootstrap-servers}")
+    @Value("${spring.kafka.producer.bootstrap-servers}")
     private String kafkaServer;
 
     @Bean
-    public Map<String, Object> producerConfigs() {
+    public ProducerFactory<String, EmailMessage> producerFactory() {
         Map<String, Object> props = new HashMap<>();
         props.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, kafkaServer);
-        props.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, LongSerializer.class);
+        props.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class);
         props.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, JsonSerializer.class);
-        return props;
+        return new DefaultKafkaProducerFactory<>(props);
     }
 
     @Bean
-    public ProducerFactory<Long, EmailMessage> producerStarshipFactory() {
-        return new DefaultKafkaProducerFactory<>(producerConfigs());
-    }
-
-    @Bean
-    public KafkaTemplate<Long, EmailMessage> kafkaTemplate() {
-        return new KafkaTemplate<>(producerStarshipFactory());
+    public KafkaTemplate<String, EmailMessage> kafkaTemplate() {
+        return new KafkaTemplate<>(producerFactory());
     }
 }

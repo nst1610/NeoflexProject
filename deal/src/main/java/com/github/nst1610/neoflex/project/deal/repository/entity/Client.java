@@ -1,5 +1,6 @@
 package com.github.nst1610.neoflex.project.deal.repository.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.github.nst1610.neoflex.project.deal.model.Employment;
 import com.github.nst1610.neoflex.project.deal.model.Passport;
 import com.github.nst1610.neoflex.project.deal.model.enums.Gender;
@@ -60,5 +61,6 @@ public class Client {
     private String account;
 
     @OneToOne(mappedBy = "client")
+    @JsonBackReference
     private Application application;
 }

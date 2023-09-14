@@ -1,5 +1,6 @@
 package com.github.nst1610.neoflex.project.deal.repository.entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.github.nst1610.neoflex.project.deal.api.dto.LoanOffer;
 import com.github.nst1610.neoflex.project.deal.model.ApplicationStatusHistory;
 import com.github.nst1610.neoflex.project.deal.model.enums.ApplicationStatus;
@@ -7,7 +8,6 @@ import lombok.*;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -25,10 +25,12 @@ public class Application {
 
     @OneToOne
     @JoinColumn(name = "client_id", referencedColumnName = "client_id")
+    @JsonManagedReference
     private Client client;
 
     @OneToOne
     @JoinColumn(name = "credit_id", referencedColumnName = "credit_id")
+    @JsonManagedReference
     private Credit credit;
 
     @Column(name = "status")
