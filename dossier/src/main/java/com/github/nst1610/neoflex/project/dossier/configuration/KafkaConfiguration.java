@@ -1,5 +1,7 @@
 package com.github.nst1610.neoflex.project.dossier.configuration;
 
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.nst1610.neoflex.project.dossier.model.EmailMessage;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.common.serialization.LongDeserializer;
@@ -38,7 +40,8 @@ public class KafkaConfiguration {
     @Bean
     public ConsumerFactory<String, EmailMessage> consumerFactory() {
         return new DefaultKafkaConsumerFactory<>(consumerConfigs(),
-                new StringDeserializer(), new JsonDeserializer<>(EmailMessage.class, true));
+                new StringDeserializer(),
+                new JsonDeserializer<>(EmailMessage.class, false));
     }
 
     @Bean
@@ -48,5 +51,12 @@ public class KafkaConfiguration {
                 new ConcurrentKafkaListenerContainerFactory<>();
         factory.setConsumerFactory(consumerFactory());
         return factory;
+    }
+
+    @Bean
+    public ObjectMapper objectMapper() {
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.enable(DeserializationFeature.READ_UNKNOWN_ENUM_VALUES_USING_DEFAULT_VALUE);
+        return mapper;
     }
 }

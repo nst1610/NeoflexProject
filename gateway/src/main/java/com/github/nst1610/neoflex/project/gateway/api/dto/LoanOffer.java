@@ -1,16 +1,12 @@
-package com.github.nst1610.neoflex.project.dossier.model;
+package com.github.nst1610.neoflex.project.gateway.api.dto;
 
-import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
 
 @Data
 @Builder
-@NoArgsConstructor
-@AllArgsConstructor
 public class LoanOffer {
     private Long applicationId;
     private BigDecimal requestedAmount;
