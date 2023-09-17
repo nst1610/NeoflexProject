@@ -24,7 +24,7 @@ public class DocumentController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @PostMapping("/{applicationId}/code")
+    @PutMapping("/{applicationId}/code")
     public ResponseEntity<Void> verifySesCode(@PathVariable Long applicationId,
                                                         @RequestBody String sesCode) {
         documentService.sendCreditIssuedRequest(applicationId, sesCode);

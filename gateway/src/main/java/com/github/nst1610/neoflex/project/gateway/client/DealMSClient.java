@@ -13,13 +13,13 @@ public interface DealMSClient {
     ResponseEntity<Void> calculateCreditConditions(@PathVariable Long applicationId,
                                                    @RequestBody FinishRegistrationRequest finishRegistrationRequest);
 
-    @PutMapping("/deal/{applicationId}/send")
+    @PutMapping("/deal/document/{applicationId}/send")
     ResponseEntity<Void> sendDocuments(@PathVariable Long applicationId);
 
-    @PutMapping("/{applicationId}/sign")
+    @PutMapping("/deal/document/{applicationId}/sign")
     ResponseEntity<Void> signDocumentsRequest(@PathVariable Long applicationId);
 
-    @PutMapping("/{applicationId}/code")
+    @PutMapping("/deal/document/{applicationId}/code")
     ResponseEntity<Void> verifySesCode(@PathVariable Long applicationId,
                                               @RequestBody String sesCode);
 }
