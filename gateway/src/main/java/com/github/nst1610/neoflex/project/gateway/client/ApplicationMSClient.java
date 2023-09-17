@@ -12,10 +12,10 @@ import java.util.List;
 
 @FeignClient(name = "${feign-clients.application-client.name}", url = "${feign-clients.application-client.url}")
 public interface ApplicationMSClient {
-    @PostMapping("/application")
+    @PostMapping
     ResponseEntity<List<LoanOffer>> calculatePossibleOffers(@RequestBody LoanApplicationRequest
                                                                            loanApplicationRequest);
 
-    @PutMapping("/application/offer")
+    @PutMapping("/offer")
     ResponseEntity<Void> chooseOffer(@RequestBody LoanOffer loanOffer);
 }

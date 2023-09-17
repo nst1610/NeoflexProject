@@ -9,17 +9,17 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 @FeignClient(name = "${feign-clients.deal-client.name}", url = "${feign-clients.deal-client.url}")
 public interface DealMSClient {
-    @PutMapping("/deal/calculate/{applicationId}")
+    @PutMapping("/calculate/{applicationId}")
     ResponseEntity<Void> calculateCreditConditions(@PathVariable Long applicationId,
                                                    @RequestBody FinishRegistrationRequest finishRegistrationRequest);
 
-    @PutMapping("/deal/document/{applicationId}/send")
+    @PutMapping("/document/{applicationId}/send")
     ResponseEntity<Void> sendDocuments(@PathVariable Long applicationId);
 
-    @PutMapping("/deal/document/{applicationId}/sign")
+    @PutMapping("/document/{applicationId}/sign")
     ResponseEntity<Void> signDocumentsRequest(@PathVariable Long applicationId);
 
-    @PutMapping("/deal/document/{applicationId}/code")
+    @PutMapping("/document/{applicationId}/code")
     ResponseEntity<Void> verifySesCode(@PathVariable Long applicationId,
                                               @RequestBody String sesCode);
 }
