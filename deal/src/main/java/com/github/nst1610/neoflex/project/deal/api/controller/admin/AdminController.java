@@ -7,6 +7,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/deal/admin")
 @RequiredArgsConstructor
@@ -21,5 +23,10 @@ public class AdminController {
     @PutMapping("/application/{applicationId}/status")
     public ResponseEntity<Application> updateApplicationStatus(@PathVariable Long applicationId) {
         return new ResponseEntity<>(adminService.updateStatusFromDossierMS(applicationId), HttpStatus.OK);
+    }
+
+    @GetMapping("/application")
+    public ResponseEntity<List<Application>> getAllApplications() {
+        return new ResponseEntity<>(adminService.getAllApplications(), HttpStatus.OK);
     }
 }

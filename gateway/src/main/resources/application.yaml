@@ -1,0 +1,9 @@
+feign-clients:
+  application-client:
+    name: ms-application
+    url: http://localhost:8082/application
+  deal-client:
+    name: ms-deal
+    url: http://localhost:8081/deal
+server:
+  port: 8085

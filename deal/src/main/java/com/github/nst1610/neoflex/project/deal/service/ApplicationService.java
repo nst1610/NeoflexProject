@@ -7,6 +7,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class ApplicationService {
@@ -19,5 +21,9 @@ public class ApplicationService {
 
     public Application get(Long id) {
         return repository.findById(id).orElseThrow(ApplicationNotFoundException::new);
+    }
+
+    public List<Application> getAll() {
+        return repository.findAll();
     }
 }
