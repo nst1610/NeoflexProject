@@ -1,0 +1,16 @@
+spring:
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username:
+    password:
+    properties.mail.smtp:
+      auth: true
+      starttls.enable: true
+  kafka:
+    bootstrap-servers: localhost:9092
+server:
+  port: 8084
+feign-client:
+  name: ms-deal
+  url: http://localhost:8081/deal/

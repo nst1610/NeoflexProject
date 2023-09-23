@@ -29,7 +29,6 @@ import java.util.Objects;
 @RequiredArgsConstructor
 @Slf4j
 public class DealService {
-    private final ClientMapper clientMapper;
     private final EmploymentMapper employmentMapper;
     private final CreditMapper creditMapper;
     private final ClientService clientService;

@@ -4,6 +4,7 @@ import com.github.nst1610.neoflex.project.deal.api.dto.FinishRegistrationRequest
 import com.github.nst1610.neoflex.project.deal.api.dto.LoanApplicationRequest;
 import com.github.nst1610.neoflex.project.deal.api.dto.LoanOffer;
 import com.github.nst1610.neoflex.project.deal.service.DealService;
+import com.github.nst1610.neoflex.project.deal.service.DocumentService;
 import com.github.nst1610.neoflex.project.deal.util.ErrorResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -24,6 +25,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class DealController {
     private final DealService dealService;
+    private final DocumentService documentService;
 
     @Operation(
             description = "Расчет возможных условий кредита",
@@ -49,6 +51,7 @@ public class DealController {
     @PutMapping("/offer")
     public ResponseEntity<Void> chooseOffer(@RequestBody LoanOffer loanOffer) {
         dealService.chooseOffer(loanOffer);
+        documentService.finishRegistration(loanOffer.getApplicationId());
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
@@ -64,6 +67,7 @@ public class DealController {
                                                           @RequestBody FinishRegistrationRequest
                                                                   finishRegistrationRequest) {
         dealService.calculateCreditConditions(finishRegistrationRequest, applicationId);
+        documentService.createDocuments(applicationId);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 }

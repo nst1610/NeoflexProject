@@ -1,5 +1,6 @@
 package com.github.nst1610.neoflex.project.deal.repository.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.github.nst1610.neoflex.project.deal.model.PaymentScheduleElement;
 import com.github.nst1610.neoflex.project.deal.model.enums.CreditStatus;
 import lombok.*;
@@ -51,5 +52,6 @@ public class Credit {
     private CreditStatus creditStatus;
 
     @OneToOne(mappedBy = "credit")
+    @JsonBackReference
     private Application application;
 }

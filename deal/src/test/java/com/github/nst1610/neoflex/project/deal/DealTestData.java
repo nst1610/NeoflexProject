@@ -13,6 +13,7 @@ import com.github.nst1610.neoflex.project.deal.model.enums.MaritalStatus;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -71,7 +72,7 @@ public class DealTestData {
                 .applicationId(1L)
                 .appliedOffer(mock(LoanOffer.class))
                 .client(mock(Client.class))
-                .creationDate(LocalDate.now())
+                .creationDate(LocalDateTime.now())
                 .status(ApplicationStatus.PREAPPROVAL)
                 .statusHistory(new ArrayList<>())
                 .build();
