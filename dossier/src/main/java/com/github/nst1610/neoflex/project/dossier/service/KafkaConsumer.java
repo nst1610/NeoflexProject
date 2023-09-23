@@ -10,28 +10,9 @@ import org.springframework.stereotype.Service;
 public class KafkaConsumer {
     private final EmailService emailService;
 
-    @KafkaListener(topics = "finish-registration", groupId = "dossier")
+    @KafkaListener(topics = {"finish-registration", "create-documents", "send-documents", "send-ses",
+    "credit-issued"}, groupId = "dossier")
     public void finishRegistration(EmailMessage message) {
-        emailService.sendFinishRegistrationMessage(message);
-    }
-
-    @KafkaListener(topics = "create-documents", groupId = "dossier")
-    public void createDocuments(EmailMessage message) {
-        emailService.sendCreateDocumentsMessage(message);
-    }
-
-    @KafkaListener(topics = "send-documents", groupId = "dossier")
-    public void sendDocuments(EmailMessage message) {
-        emailService.sendSendDocumentsMessage(message);
-    }
-
-    @KafkaListener(topics = "send-ses", groupId = "dossier")
-    public void sendSes(EmailMessage message) {
-        emailService.sendSesCodeMessage(message);
-    }
-
-    @KafkaListener(topics = "credit-issued", groupId = "dossier")
-    public void creditIssued(EmailMessage message) {
-        emailService.sendCreditIssuedMessage(message);
+        emailService.sendMessage(message);
     }
 }

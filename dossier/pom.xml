@@ -17,6 +17,8 @@
 		<java.version>17</java.version>
 		<spring.cloud.version>3.1.1</spring.cloud.version>
 		<jackson.version>2.15.2</jackson.version>
+		<swagger.version>2.2.15</swagger.version>
+		<springdoc.version>1.7.0</springdoc.version>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -57,7 +59,16 @@
 			<artifactId>jackson-datatype-jsr310</artifactId>
 			<version>${jackson.version}</version>
 		</dependency>
-
+		<dependency>
+			<groupId>io.swagger.core.v3</groupId>
+			<artifactId>swagger-annotations</artifactId>
+			<version>${swagger.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springdoc</groupId>
+			<artifactId>springdoc-openapi-ui</artifactId>
+			<version>${springdoc.version}</version>
+		</dependency>
 	</dependencies>
 
 	<build>
